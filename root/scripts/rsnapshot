@@ -17,8 +17,10 @@ REMOTE_SSH=$(egrep -o "([0-9]{1,3}\.){3}[0-9]{1,3}" $RSNAPSHOT_FILE | sort | uni
 [[ -f $SSH_KNOWNHOSTS ]] && rm $SSH_KNOWNHOSTS
 touch $SSH_KNOWNHOSTS
 while IFS= read -r line; do
-    echo "Adding $line to known hosts"
-    ssh-keyscan -H $line >> $SSH_KNOWNHOSTS
+    if [[ ! -z "$line" ]]; then
+        echo "Adding $line to known hosts"
+        ssh-keyscan -H $line >> $SSH_KNOWNHOSTS
+    fi
 done <<< "$REMOTE_SSH"
 chmod 600 $SSH_KNOWNHOSTS
 
