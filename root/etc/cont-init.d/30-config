@@ -1,0 +1,22 @@
+#!/usr/bin/with-contenv bash
+
+mkdir -p /config/{log,keys,crontabs}
+mkdir -p /root/.ssh
+
+if [[ ! -f /config/keys/id_rsa ]]; then
+    ssh-keygen -f /config/keys/id_rsa -q -N ""
+fi
+
+[[ ! -f /config/rsnapshot.conf ]] && cp /defaults/rsnapshot.conf /config/rsnapshot.conf
+rm -rf /etc/rsnapshot.conf
+ln -s /config/rsnapshot.conf /etc/rsnapshot.conf
+
+[[ ! -f /config/crontabs/root ]] && cp /defaults/crontabs /config/crontabs/root
+rm /etc/crontabs/*
+cp /config/crontabs/* /etc/crontabs/
+
+chown -R abc:abc /config
+chmod -R g+w /config
+chmod -R 644 /etc/logrotate.d
+chmod 700 /root/.ssh
+chmod +x /scripts/rsnapshot

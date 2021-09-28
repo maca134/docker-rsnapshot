@@ -1,0 +1,14 @@
+# do daily/weekly/monthly maintenance
+# min   hour    day     month   weekday command
+*/15    *       *       *       *       run-parts /etc/periodic/15min
+0       *       *       *       *       run-parts /etc/periodic/hourly
+0       2       *       *       *       run-parts /etc/periodic/daily
+0       3       *       *       6       run-parts /etc/periodic/weekly
+0       5       1       *       *       run-parts /etc/periodic/monthly
+
+# rsnapshot
+0       */4     *       *       *       /usr/bin/flock -n /tmp/rsnapshot.lock /scripts/rsnapshot hourly > /config/log/rsnapshot-hourly.log 2>&1
+30      3       *       *       *	    rsnapshot daily > /config/log/rsnapshot-daily.log 2>&1
+10      3       *       *       1	    rsnapshot weekly > /config/log/rsnapshot-weekly.log 2>&1
+30      2       1       *       *	    rsnapshot monthly > /config/log/rsnapshot-monthly.log 2>&1
+10      2       1       1       *	    rsnapshot yearly > /config/log/rsnapshot-yearly.log 2>&1
