@@ -21,3 +21,4 @@ chmod -R g+w /config
 chmod -R 644 /etc/logrotate.d
 chmod 700 /root/.ssh
 chmod +x /scripts/rsnapshot
+chmod -R 766 /config/rsnapshot.conf
