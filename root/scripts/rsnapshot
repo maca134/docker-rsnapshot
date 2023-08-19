@@ -29,6 +29,8 @@ if ! rsnapshot $PERIOD; then
     exit 1
 fi
 
+chown -R abc:abc /snapshots/hourly.0
+
 echo "Getting backup report"
 echo "Backup complete at $NOW" > /config/log/report-${PERIOD}.txt
 rsnapshot du >> /config/log/report-${PERIOD}.txt
