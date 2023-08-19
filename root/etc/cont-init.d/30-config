@@ -24,4 +24,4 @@ chmod +x /scripts/rsnapshot
 chmod -R 766 /config/rsnapshot.conf
 
 mkdir -p /snapshots
-chown -R abc:abc /snapshots
+chown abc:abc /snapshots
