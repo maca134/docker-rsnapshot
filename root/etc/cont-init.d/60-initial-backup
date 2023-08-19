@@ -1,3 +1,5 @@
 #!/usr/bin/with-contenv bash
 
+[[ -f /var/run/rsnapshot.pid ]] && rm /var/run/rsnapshot.pid
+
 /usr/bin/flock -n /tmp/rsnapshot.lock /scripts/rsnapshot hourly
